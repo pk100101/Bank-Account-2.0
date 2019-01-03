@@ -33,7 +33,6 @@ public abstract class BankAccount
 	}
 	public void transfer (BankAccount other, double amt)
 	{
-		if (getName() .equals(other.getName()))
 		withdraw(amt);
 		other.deposit(amt);
 	}
