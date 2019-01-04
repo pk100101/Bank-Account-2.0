@@ -34,8 +34,10 @@ public abstract class BankAccount
 	public void transfer (BankAccount other, double amt)
 	{
 		if (getName().equals(other.getName()))
-		withdraw(amt);
-		other.deposit(amt);
+		{
+			withdraw(amt);
+			other.deposit(amt);
+		}
 	}
 	public String getName ()
 	{
@@ -56,3 +58,4 @@ public abstract class BankAccount
 	public abstract void endOfMonthUpdate();
 	
 }
+

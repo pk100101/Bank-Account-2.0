@@ -1,4 +1,5 @@
 
+
 public class CheckingAccount extends BankAccount
 {
 	//fields
@@ -35,26 +36,30 @@ public class CheckingAccount extends BankAccount
 		super.deposit(amt);
 		numTransactions++;
 		if (numTransactions >= FREE_TRANS)
-			withdraw(TRANSACTION_FEE);
+			super.withdraw(TRANSACTION_FEE);
+		
 	}
 	public void withdraw (double amt)
 	{
-		if (getBalance()<=0)
-			throw new IllegalArgumentException ("Error: Invalid Balance");
-		else if (amt <= 0)
+		if (amt <= 0)
 			throw new IllegalArgumentException ("Amount cannot be negative!");
-		else  if (amt > getBalance())
-			super.withdraw(OVER_DRAFT_FEE);
+		else if (getBalance() < 0)
+			throw new IllegalArgumentException ("Your balance is negative, you cannot make the transaction");
 		super.withdraw(amt);
+		if (amt > getBalance())
+			super.withdraw(OVER_DRAFT_FEE);
 		numTransactions++;
-		if (numTransactions >= FREE_TRANS)
-			withdraw(TRANSACTION_FEE);		
+		if (numTransactions > FREE_TRANS)
+			super.withdraw(TRANSACTION_FEE);
 	}
 	public void transfer (BankAccount other, double amt)
 	{
-		if (getName().equals(other.getName()))
-			super.transfer(other, amt);
-		else 
+		if (amt > getBalance())
+			throw new  IllegalArgumentException ("Balance cannot go negative");
+		else if(!(getName().equals(other.getName())))
 			throw new IllegalArgumentException ("Account names do not match!");
+		else
+			super.transfer(other, amt);
+	
 	}
 }
