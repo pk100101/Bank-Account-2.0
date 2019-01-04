@@ -19,16 +19,18 @@ public class BankAccountMain
 		{
 			System.out.println("Hello, what would you like to do?"
 				+ "\nYou can add an account, make a transaction, or terminate the program");
-			String response = s.next();
-			s.nextLine();
+			String response = s.nextLine();
 			if ((response.toLowerCase()).equals("add an account"))
 			{
+				response1=false;
 				System.out.print("What kind of account would you like to add?"
 						+ "\nYou can create a checking or a savings account");
-					if (response.equals("checking"))
+				s.nextLine();
+				response = s.nextLine();	
+				if (response.equals("checking"))
 					{
 						System.out.println("Please provide a name");
-						String name = s.next();
+						String name = s.nextLine();
 						s.nextLine();
 						System.out.println("Would you like to provide an initial balance?"
 								+ "\nYes or No");
