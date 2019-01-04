@@ -1,10 +1,9 @@
-
 public class SavingsAccount extends BankAccount
 {
 	private double intRate;
 	final double MIN_BAL;
 	final double MIN_BAL_FEE;
-	private int numTransactions;
+	
 
 	SavingsAccount(String n, double b, double r, double mb, double mbf)
 	{
@@ -27,22 +26,30 @@ public class SavingsAccount extends BankAccount
 	public void endOfMonthUpdate()
 	{
 		addInterest();
-		numTransactions = 0;
 	}
 	public void withdraw (double amt)
-	{
-		if (amt >= getBalance())
-			throw new IllegalArgumentException ("Balance can not go negative!");
-		else if (getBalance()<=MIN_BAL)
+	{		
+		if (getBalance()< MIN_BAL)
 			throw new IllegalArgumentException ("Transaction cannot occur");
+		else if (amt <= 0 || getBalance() < MIN_BAL)
+			throw new IllegalArgumentException ("Balance can not go negative!");
 		super.withdraw(amt);
-		if ((getBalance()-amt) >= MIN_BAL)
-			withdraw (MIN_BAL_FEE);
-		numTransactions++;
+		if ((getBalance()-amt) < MIN_BAL)
+			super.withdraw (MIN_BAL_FEE);
 	}
+	public void deposit (double amt)
+	{
+		if (amt <= 0)
+			throw new IllegalArgumentException ("Amount cannot be negative!");
+		super.deposit(amt);
+	}
+
 	public void transfer (BankAccount other, double amt)
 	{
-		super.transfer(other, amt);
-		numTransactions++;
+		if (getName().equals(other.getName()))
+			super.transfer(other, amt);
+		else 
+			throw new IllegalArgumentException ("Account names do not match!");
 	}
 }
+

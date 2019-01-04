@@ -23,7 +23,20 @@ public class BankAccountMain
 			s.nextLine();
 			if ((response.toLowerCase()).equals("add an account"))
 			{
-				
+				System.out.print("What kind of account would you like to add?"
+						+ "\nYou can create a checking or a savings account");
+					if (response.equals("checking"))
+					{
+						System.out.println("Please provide a name");
+						String name = s.next();
+						s.nextLine();
+						System.out.println("Would you like to provide an initial balance?"
+								+ "\nYes or No");
+					}
+					else if (response.equals("savings"))
+					{
+						
+					}
 			}
 			else if (response.equals("make a transaction"))
 			{

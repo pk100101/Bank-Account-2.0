@@ -43,15 +43,18 @@ public class CheckingAccount extends BankAccount
 			throw new IllegalArgumentException ("Error: Invalid Balance");
 		else if (amt <= 0)
 			throw new IllegalArgumentException ("Amount cannot be negative!");
-		else  if (amt >= this.getBalance())
-			throw new IllegalArgumentException ("Invalid amount");
-		super.deposit(amt);
+		else  if (amt > getBalance())
+			super.withdraw(OVER_DRAFT_FEE);
+		super.withdraw(amt);
 		numTransactions++;
 		if (numTransactions >= FREE_TRANS)
 			withdraw(TRANSACTION_FEE);		
 	}
-	public void transfer (double amt)
+	public void transfer (BankAccount other, double amt)
 	{
-		
+		if (getName().equals(other.getName()))
+			super.transfer(other, amt);
+		else 
+			throw new IllegalArgumentException ("Account names do not match!");
 	}
 }
