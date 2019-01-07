@@ -1,3 +1,4 @@
+
 public abstract class BankAccount 
 {
 	//fields
@@ -17,9 +18,8 @@ public abstract class BankAccount
 	public BankAccount (String n)
 	{
 		name = n;
-		accNum = nextNum;
+		//next number thing
 		balance = 0;
-		nextNum++;
 	}
 	
 	//methods
@@ -58,3 +58,4 @@ public abstract class BankAccount
 	public abstract void endOfMonthUpdate();
 	
 }
+
