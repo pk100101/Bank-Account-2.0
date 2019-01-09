@@ -1,3 +1,8 @@
+/**
+ * 
+ * @author Pragnya Kousik
+ *
+ */
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -98,80 +103,119 @@ public class BankAccountMain
 			{
 				System.out.println("What kind of transaction would you like to make"
 						+ "\nYou can withdraw, deposit, transfer, or get your account number"
-						+ "\nTo withdraw, enter: Withdraw"
-						+ "\nTo deposit, enter: Deposit"
-						+ "\nTo transfer, enter: Terminate");
+						+ "\nTo withdraw, enter: withdraw"
+						+ "\nTo deposit, enter: deposit"
+						+ "\nTo transfer, enter: terminate"
+						+ "\nTo get account number, enter: get acc num");
 				String transactionResponse = s.nextLine();
 				switch (transactionResponse)
 				{
 					case ("withdraw"):
 					{
-						System.out.println("Please enter your account number");
-						int accNum = s.nextInt();
-						for (BankAccount accs: accounts) 
-						{
-							if (accNum == accs.getAccNum())
+						boolean withdraw = true;
+						while (withdraw)
+						{					
+							System.out.println("Please enter your account number");
+							int accNum = s.nextInt();
+							for (BankAccount acc: accounts) 
 							{
-								System.out.println("Please enter how much you would like to withdraw:");
-								double withAmt = s.nextInt();
-								s.nextLine();
-								accs.withdraw(withAmt);
-								System.out.println("Balance: " + accs.getBalance());
+								if (accNum == acc.getAccNum())
+								{
+									System.out.println("Please enter how much you would like to withdraw:");
+									double withAmt = s.nextInt();
+									s.nextLine();
+									acc.withdraw(withAmt);
+									System.out.println("Balance: " + acc.getBalance());
+								}
+								else
+								{
+									System.out.println("The account number that you have provided is incorrect."
+											+ "\nYou can re-enter your account number or get your account number"
+											+ "\nTo re-enter your account number: press enter"
+											+ "\nTo get the account number enter: get num");
+								}
 							}
-							else
-							{
-								System.out.println("The account number that you have provided is incorrect."
-										+ "\nYou can re-enter your account number or get your account number"
-										+ "\nTo re-enter your account number: press enter"
-										+ "\nTo get the account number: ");
-							}
+							withdraw = false;
+							break;
 						}
-						break;
 					}
 					case ("deposit"):
 					{
-						System.out.println("Please enter your account number");
-						int accNum = s.nextInt();
-						for (BankAccount accs: accounts) 
+						boolean deposit = true;
+						while (deposit)
 						{
-							if (accNum == accs.getAccNum())
+							System.out.println("Please enter your account number");
+							int accNum = s.nextInt();
+							for (BankAccount accs: accounts) 
 							{
-								System.out.println("Please enter how much you would like to deposit:");
-								//need to catch exception if user inputs invalid response
-								double depAmt = s.nextInt();
-								s.nextLine();
-								accs.deposit(depAmt);
-								System.out.println("Balance: " + accs.getBalance());
+								if (accNum == accs.getAccNum())
+								{
+									System.out.println("Please enter how much you would like to deposit:");
+									//need to catch exception if user inputs invalid response
+									double depAmt = s.nextInt();
+									s.nextLine();
+									accs.deposit(depAmt);
+									System.out.println("Balance: " + accs.getBalance());
+								}
+								else
+								{
+									System.out.println("The account number that you have provided is incorrect."
+											+ "\nYou can re-enter your account number or get your account number"
+											+ "\nTo re-enter your account number: press enter"
+											+ "\nTo get the account number enter: get num");
+									s.nextLine();
+								}
 							}
+							deposit = false;
+							break;
 						}
-						break;
 					}
-					
 					
 					case ("trans"):
 					case ("transfer"):
 					{
 						System.out.println("Which account would you like transfer from?");
-						s.nextLine();}
-						case ("savings"):
+						String transAccResponse = s.nextLine();
+						switch  (transAccResponse)
 						{
-							System.out.println("Please enter your savings account number");
-							
+							case ("savings"):
+							{
+								System.out.println("Please enter your savings account number");	
+							}
+							case ("checking"):
+							{
+								System.out.println("Please enter your checking account number");	
+							}
+							break;
 						}
+					}
 					
 					case ("get acc num"):
-					case ("get number"):
-					case ("get account number"):
 					{
 						System.out.println("To get your account number, you will need to enter your name");
+						String accName= s.nextLine();
+						for (BankAccount acc : accounts)
+						{
+							if (accName.equals(acc.getName()))
+							{
+								System.out.println(acc.toString());
+								if (acc instanceof CheckingAccount)
+									System.out.println("Checking account");
+								else if (acc instanceof SavingsAccount)
+									System.out.println("Savings account");
+							}
+						}
 						s.nextLine();
+						
+						break;
 					}
 					default:
 					{	
 						System.out.println("Invalid response, try again (press enter)");
 						s.nextLine();
 					}
-			}}
+				}
+			}
 			else if ((response.toLowerCase()).equals("terminate"))
 				{
 					System.out.println("Thank you for banking with us, we hope to see you soon");

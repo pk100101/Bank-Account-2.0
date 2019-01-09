@@ -1,3 +1,8 @@
+/**
+ * 
+ * @author Pragnya Kousik
+ *
+ */
 public class SavingsAccount extends BankAccount
 {
 	private double intRate;
