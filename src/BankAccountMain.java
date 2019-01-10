@@ -8,6 +8,11 @@ import java.util.Scanner;
 
 public class BankAccountMain 
 {
+	/**
+	 * 
+	 * @param str - takes a string parameter
+	 * @return checks if the string is a integer or not,  returns false if it is not an integer
+	 */
 	private static boolean isNumeric(String str)
 	{
 		try
@@ -164,6 +169,7 @@ public class BankAccountMain
 									}
 									System.out.println("Withdraw successful"
 											+ "\nBalance: " + acc.getBalance());
+									withdraw = false;
 								}
 								else
 								{
@@ -199,7 +205,6 @@ public class BankAccountMain
 								}
 							}
 						}
-						withdraw = false;
 						break;
 					}
 					
@@ -219,14 +224,13 @@ public class BankAccountMain
 							{
 								if (Integer.parseInt(accNum) == accs.getAccNum())
 								{
-									System.out.println("Please enter how much you would like to withdraw:");
+									System.out.println("Please enter how much you would like to deposit:");
 									String depAmt = s.nextLine();
 									while(!isNumeric(depAmt))
 									{
 										System.out.println("Invalid input, please input a numeric value");
 										depAmt = s.nextLine();
 									}
-									s.nextLine();
 									try
 									{
 										accs.deposit(Double.parseDouble(depAmt));
@@ -237,6 +241,7 @@ public class BankAccountMain
 									}
 									System.out.println("Deposit successful"
 											+ "\nBalance: " + accs.getBalance());
+									deposit = false;
 								}
 								else
 								{
@@ -248,8 +253,9 @@ public class BankAccountMain
 								}
 								continue;
 							}
-							deposit = false;
+							
 						}
+						
 						break;
 					}
 					
@@ -280,8 +286,10 @@ public class BankAccountMain
 											transAccResponse = s.nextLine();
 										}
 										for(BankAccount acc1: accounts)
+										{
 											if(Integer.parseInt(transAccResponse) == acc1.getAccNum());
 										
+										}
 									}
 								}
 								else
