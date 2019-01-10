@@ -22,7 +22,7 @@ public class BankAccountMain
 		boolean mainResponse = true;
 		while (mainResponse)
 		{
-			System.out.println("Hello, what would you like to do?"
+			System.out.println("\nHello, what would you like to do?"
 				+ "\nYou can add an account, make a transaction, or terminate the program"
 				+ "\nTo add an account, enter: Account"
 				+ "\nTo make a transaction, enter: Transaction"
@@ -105,7 +105,7 @@ public class BankAccountMain
 						+ "\nYou can withdraw, deposit, transfer, or get your account number"
 						+ "\nTo withdraw, enter: withdraw"
 						+ "\nTo deposit, enter: deposit"
-						+ "\nTo transfer, enter: terminate"
+						+ "\nTo transfer, enter: transfer"
 						+ "\nTo get account number, enter: get acc num");
 				String transactionResponse = s.nextLine();
 				switch (transactionResponse)
@@ -133,6 +133,24 @@ public class BankAccountMain
 											+ "\nYou can re-enter your account number or get your account number"
 											+ "\nTo re-enter your account number: press enter"
 											+ "\nTo get the account number enter: get num");
+									if (s.nextLine().equals("get num"))
+									{
+										String accName= s.nextLine();
+										for (BankAccount acc1 : accounts)
+										{
+											if (accName.equals(acc1.getName()))
+											{
+												System.out.println(acc1.toString());
+												if (acc instanceof CheckingAccount)
+													System.out.println("Checking account");
+												else if (acc instanceof SavingsAccount)
+													System.out.println("Savings account");
+											}
+											//is this correct or do i need to throw an exception
+											else
+												System.out.println("The name you have entered is not linked with an account");
+										}
+									}
 								}
 							}
 							withdraw = false;
@@ -155,7 +173,8 @@ public class BankAccountMain
 									double depAmt = s.nextInt();
 									s.nextLine();
 									accs.deposit(depAmt);
-									System.out.println("Balance: " + accs.getBalance());
+									System.out.println("Deposit successful"
+											+ "\nBalance: " + accs.getBalance());
 								}
 								else
 								{
@@ -165,49 +184,62 @@ public class BankAccountMain
 											+ "\nTo get the account number enter: get num");
 									s.nextLine();
 								}
+								continue;
 							}
 							deposit = false;
-							break;
 						}
+						break;
 					}
 					
-					case ("trans"):
 					case ("transfer"):
 					{
-						System.out.println("Which account would you like transfer from?");
-						String transAccResponse = s.nextLine();
-						switch  (transAccResponse)
+						boolean transferResponse = true;
+						while (transferResponse)
 						{
-							case ("savings"):
+							System.out.println("Which account would you like transfer from?");
+							String transAccResponse = s.next();
+							switch  (transAccResponse)
 							{
-								System.out.println("Please enter your savings account number");	
+								case ("savings"):
+								{
+									System.out.println("Please enter your savings account number");	
+								}
+								case ("checking"):
+								{
+									System.out.println("Please enter your checking account number");	
+								}
+								default:
+									System.out.println("Invalid response, try again");
+								break;
 							}
-							case ("checking"):
-							{
-								System.out.println("Please enter your checking account number");	
-							}
-							break;
 						}
 					}
 					
 					case ("get acc num"):
 					{
-						System.out.println("To get your account number, you will need to enter your name");
-						String accName= s.nextLine();
-						for (BankAccount acc : accounts)
+						boolean getAccNum = true;
+						while (getAccNum)
 						{
-							if (accName.equals(acc.getName()))
+							System.out.println("To get your account number, you will need to enter your name");
+							String accName= s.nextLine();
+							for (BankAccount acc : accounts)
 							{
-								System.out.println(acc.toString());
-								if (acc instanceof CheckingAccount)
-									System.out.println("Checking account");
-								else if (acc instanceof SavingsAccount)
-									System.out.println("Savings account");
+								if (accName.equals(acc.getName()))
+								{
+									System.out.println(acc.toString());
+									if (acc instanceof CheckingAccount)
+										System.out.println("Checking account");
+									else if (acc instanceof SavingsAccount)
+										System.out.println("Savings account");
+								}
+								//is this correct or do i need to throw an exception
+								else
+									System.out.println("The name you have entered is not linked with an account");
 							}
-						}
-						s.nextLine();
-						
+							s.nextLine();
+						getAccNum = false;
 						break;
+						}	
 					}
 					default:
 					{	
