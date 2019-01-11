@@ -69,10 +69,13 @@ public class BankAccountMain
 							{
 								System.out.println("You have chosen to provide an initial balance"
 										+ "\nPlease enter your initial balance");
-								double balance = s.nextDouble();
-								s.nextLine();
-								System.out.println("Balance: " + balance);
-								CheckingAccount account = new CheckingAccount (name, balance, OVER_DRAFT_FEE, TRANSACTION_FEE, FREE_TRANSACTIONS);
+								String balance = s.nextLine();
+								while(!isNumeric(balance))
+								{
+									System.out.println("Invalid input, please input a numeric value");
+									balance = s.nextLine();
+								}
+								CheckingAccount account = new CheckingAccount (name, Double.parseDouble(balance), OVER_DRAFT_FEE, TRANSACTION_FEE, FREE_TRANSACTIONS);
 								accounts.add(account);
 								System.out.println(account.toString());
 							}
@@ -96,10 +99,13 @@ public class BankAccountMain
 							{
 								System.out.println("You have chosen to provide an initial balance"
 										+ "\nPlease enter your initial balance");
-								double balance = s.nextDouble();
-								s.nextLine();
-								System.out.println("Balance: " + balance);
-								SavingsAccount account = new SavingsAccount (name, balance, OVER_DRAFT_FEE, TRANSACTION_FEE, FREE_TRANSACTIONS);
+								String balance = s.nextLine();
+								while(!isNumeric(balance))
+								{
+									System.out.println("Invalid input, please input a numeric value");
+									balance = s.nextLine();
+								}
+								SavingsAccount account = new SavingsAccount (name, Double.parseDouble(balance), OVER_DRAFT_FEE, TRANSACTION_FEE, FREE_TRANSACTIONS);
 								accounts.add(account);
 								System.out.println(account.toString());
 							}
@@ -140,7 +146,6 @@ public class BankAccountMain
 						while (withdraw)
 						{					
 							System.out.println("Please enter your account number");
-							
 							String accNum = s.nextLine();
 							while(!isNumeric(accNum))
 							{
@@ -249,13 +254,32 @@ public class BankAccountMain
 											+ "\nYou can re-enter your account number or get your account number"
 											+ "\nTo re-enter your account number: press enter"
 											+ "\nTo get the account number enter: get num");
-									s.nextLine();
+									if (s.nextLine().equals("get num"))
+									{
+										boolean retrieveAccounts = true;
+										while(retrieveAccounts)
+										{
+											System.out.println("Please enter your name");
+											String accName= s.nextLine();
+											for (BankAccount acc2 : accounts)
+											{
+												if (accName.equals(acc2.getName()))
+												{
+													System.out.println(acc2.toString());
+													if (acc2 instanceof CheckingAccount)
+														System.out.println("Checking account");
+													else if (acc2 instanceof SavingsAccount)
+														System.out.println("Savings account");
+													retrieveAccounts = false;
+												}
+												else
+													System.out.println("The name you have entered is not linked with an account");
+											}
+										}
+									}
 								}
-								continue;
-							}
-							
-						}
-						
+							}							
+						}						
 						break;
 					}
 					
@@ -273,22 +297,42 @@ public class BankAccountMain
 							}							
 							for (BankAccount acc: accounts) 
 							{									
-								if (Integer.parseInt(accNum) == acc.getAccNum())
+								if (acc.getAccNum() == Integer.parseInt(accNum))
 								{
 									boolean transferResponse = true;
 									while (transferResponse)
 									{
 										System.out.println("Please enter the account number that you would like to transfer to");
-										String transAccResponse = s.next();
-										while(!isNumeric(transAccResponse))
+										String transAccNum = s.next();
+										while(!isNumeric(transAccNum))
 										{
 											System.out.println("Invalid input, please input a numeric value");
-											transAccResponse = s.nextLine();
+											transAccNum = s.nextLine();
 										}
 										for(BankAccount acc1: accounts)
 										{
-											if(Integer.parseInt(transAccResponse) == acc1.getAccNum());
-										
+											if (acc1.getAccNum() == Integer.parseInt(transAccNum))
+											{
+												System.out.println("Please enter how much you would like to transfer:");
+												String transAmt = s.nextLine();
+												while(!isNumeric(transAmt))
+												{
+													System.out.println("Invalid input, please input a numeric value");
+													transAmt = s.nextLine();
+												}
+												s.nextLine();
+												try
+												{
+													acc.transfer(acc1, Double.parseDouble(transAmt));
+													System.out.println("Transfer successful"
+															+ "\nBalance: $" + acc1.getBalance());
+												}
+												catch (IllegalArgumentException e)
+												{
+													System.out.println("Transaction not authorized!");
+												}												
+												transfer = false;
+											}										
 										}
 									}
 								}
@@ -311,7 +355,6 @@ public class BankAccountMain
 												else if (acc instanceof SavingsAccount)
 													System.out.println("Savings account");
 											}
-											//is this correct or do i need to throw an exception
 											else
 												System.out.println("The name you have entered is not linked with an account");
 										}
@@ -344,10 +387,11 @@ public class BankAccountMain
 									count++;
 									retrieveAccounts = false;
 								}
-								if(count == 0)
-									System.out.println("The name you have entered is not linked with an account");
 							}
+							if(count == 0)
+								System.out.println("The name you have entered is not linked with an account");
 						}
+						break;
 					}
 
 					default:
