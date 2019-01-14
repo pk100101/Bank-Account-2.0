@@ -1,8 +1,3 @@
-/**
- * 
- * @author Pragnya Kousik
- *
- */
 public abstract class BankAccount 
 {
 	//fields
@@ -12,11 +7,6 @@ public abstract class BankAccount
 	private double balance;
 	
 	//constructors
-	/**
-	 * 
-	 * @param n - bank account holder's name
-	 * @param b - balance in bank account
-	 */
 	public BankAccount (String n, double b)
 	{
 		name = n;
@@ -24,10 +14,6 @@ public abstract class BankAccount
 		balance = b;
 		nextNum++;
 	}
-	/**
-	 * 
-	 * @param n - bank account holder's name
-	 */
 	public BankAccount (String n)
 	{
 		name = n;
@@ -37,30 +23,14 @@ public abstract class BankAccount
 	}
 	
 	//methods
-	/**
-	 * 
-	 * @param amt - the amount to be deposited
-	 * this method adds the amount to be deposited to the balance
-	 */
 	public void deposit (double amt)
 	{
 		balance += amt;
 	}
-	/**
-	 * 
-	 * @param amt  -  the amount to be withdrawn
-	 * this method removes the amount to be withdrawn from the balance
-	 */
 	public void withdraw (double amt)
 	{
 		balance -= amt;
 	}
-	/**
-	 * 
-	 * @param other - the account that the money is transferred to
-	 * @param amt - transfer amount
-	 * removes amount from one account and deposits to the other account
-	 */
 	public void transfer (BankAccount other, double amt)
 	{
 		if (getName().equals(other.getName()))
@@ -69,26 +39,14 @@ public abstract class BankAccount
 			other.deposit(amt);
 		}
 	}
-	/**
-	 * 
-	 * @return - returns the name of the account holder
-	 */
 	public String getName ()
 	{
 		return name;
 	}
-	/**
-	 * 
-	 * @return - returns the balance in the account
-	 */
 	public double getBalance()
 	{
 		return balance;
 	}
-	/**
-	 * 
-	 * @return - returns the account number
-	 */
 	public int getAccNum()
 	{
 		return accNum;
@@ -100,4 +58,3 @@ public abstract class BankAccount
 	public abstract void endOfMonthUpdate();
 	
 }
-

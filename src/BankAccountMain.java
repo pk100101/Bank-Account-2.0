@@ -163,17 +163,16 @@ public class BankAccountMain
 										System.out.println("Invalid input, please input a numeric value");
 										withAmt = s.nextLine();
 									}
-									s.nextLine();
 									try
 									{
 										acc.withdraw(Double.parseDouble(withAmt));
+										System.out.println("Withdraw successful"
+												+ "\nBalance: " + acc.getBalance());
 									}
 									catch (IllegalArgumentException e)
 									{
 										System.out.println("Transaction not authorized!");
 									}
-									System.out.println("Withdraw successful"
-											+ "\nBalance: " + acc.getBalance());
 									withdraw = false;
 								}
 								else
@@ -239,13 +238,13 @@ public class BankAccountMain
 									try
 									{
 										accs.deposit(Double.parseDouble(depAmt));
+										System.out.println("Deposit successful"
+												+ "\nBalance: " + accs.getBalance());
 									}
 									catch (IllegalArgumentException e)
 									{
 										System.out.println("Transaction not authorized!");
 									}
-									System.out.println("Deposit successful"
-											+ "\nBalance: " + accs.getBalance());
 									deposit = false;
 								}
 								else

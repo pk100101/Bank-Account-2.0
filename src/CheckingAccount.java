@@ -1,8 +1,3 @@
-/**
- * 
- * @author Pragnya Kousik
- *
- */
 public class CheckingAccount extends BankAccount
 {
 	//fields
