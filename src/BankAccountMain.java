@@ -25,8 +25,7 @@ public class BankAccountMain
 			return false;
 		}
 	}
-	
-	
+		
 
 	public static void main (String [] args)
 	{
@@ -167,7 +166,7 @@ public class BankAccountMain
 									{
 										acc.withdraw(Double.parseDouble(withAmt));
 										System.out.println("Withdraw successful"
-												+ "\nBalance: " + acc.getBalance());
+												+ "\nBalance: $" + acc.getBalance());
 									}
 									catch (IllegalArgumentException e)
 									{
@@ -239,7 +238,7 @@ public class BankAccountMain
 									{
 										accs.deposit(Double.parseDouble(depAmt));
 										System.out.println("Deposit successful"
-												+ "\nBalance: " + accs.getBalance());
+												+ "\nBalance: $" + accs.getBalance());
 									}
 									catch (IllegalArgumentException e)
 									{
@@ -319,11 +318,11 @@ public class BankAccountMain
 													System.out.println("Invalid input, please input a numeric value");
 													transAmt = s.nextLine();
 												}
-												s.nextLine();
 												try
 												{
 													acc.transfer(acc1, Double.parseDouble(transAmt));
 													System.out.println("Transfer successful"
+															+ "\nBalance: $" + acc.getBalance()
 															+ "\nBalance: $" + acc1.getBalance());
 												}
 												catch (IllegalArgumentException e)

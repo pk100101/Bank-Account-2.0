@@ -1,3 +1,8 @@
+/**
+ * 
+ * @author Pragnya Kousik
+ *
+ */
 public class CheckingAccount extends BankAccount
 {
 	//fields
@@ -7,6 +12,14 @@ public class CheckingAccount extends BankAccount
 	private int numTransactions;
 	
 	//constructors
+	/**
+	 * 
+	 * @param n - name of account holder
+	 * @param b - balance in account
+	 * @param odf - overdraft fee
+	 * @param tf - transaction fee
+	 * @param freeTrans - number of free transaction
+	 */
 	public CheckingAccount (String n, double b, double odf, double tf, int freeTrans)
 	{
 		super (n, b);
@@ -14,6 +27,13 @@ public class CheckingAccount extends BankAccount
 		TRANSACTION_FEE = tf;
 		FREE_TRANS = freeTrans;
 	}
+	/**
+	 * 
+	 * @param n - account holder's name
+	 * @param odf - overdraft fee
+	 * @param tf - transaction fee
+	 * @param freeTrans - number of free transactions
+	 */
 	public CheckingAccount(String n, double odf, double tf, int freeTrans)
 	{
 		super (n);
@@ -23,10 +43,16 @@ public class CheckingAccount extends BankAccount
 	}
 	
 	//methods
+	/**
+	 * sets the number of transaction to 0 at the end of the month
+	 */
 	public void endOfMonthUpdate()
 	{
 		numTransactions = 0;
 	}
+	/**
+	 * overrides the deposit method in the BankAccount class; prevents negative deposit amount
+	 */
 	public void deposit (double amt)
 	{
 		if (amt <= 0)
@@ -37,6 +63,10 @@ public class CheckingAccount extends BankAccount
 			super.withdraw(TRANSACTION_FEE);
 		
 	}
+	/**
+	 * overrides withdraw method in the BankAccount class; prevents negative withdraw
+	 * amount and transaction from occurring if the balance is already negative
+	 */
 	public void withdraw (double amt)
 	{
 		if (amt <= 0)
@@ -50,6 +80,9 @@ public class CheckingAccount extends BankAccount
 		if (numTransactions > FREE_TRANS)
 			super.withdraw(TRANSACTION_FEE);
 	}
+	/**
+	 * overrides transfer method of the BankAccount class; prevents negative balance
+	 */
 	public void transfer (BankAccount other, double amt)
 	{
 		if (amt > getBalance())
