@@ -95,7 +95,7 @@ public abstract class BankAccount
 	}
 	public String toString()
 	{
-		return "Account number: " + accNum + "\tName: " + name + "\tBalance: " + balance;
+		return "Account number: " + accNum + "\tName: " + name + "\tBalance: $" + balance;
 	}
 	public abstract void endOfMonthUpdate();
 	
